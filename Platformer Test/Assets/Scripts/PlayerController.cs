@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
     public float jumpHeight;
 
     Animator theanimator;
-    public bool isMoving;
+    private bool isMoving;
 
     /*
     private bool IsMoving()
@@ -23,12 +23,18 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         theanimator = gameObject.GetComponent<Animator>();
-        isMoving = true;
     }
 	
 	// Update is called once per frame
 	void Update () {
 
+
+        if (GetComponent<Rigidbody2D>().velocity.x > 0)
+            isMoving = true;
+        else
+            isMoving = false;
+
+        theanimator.SetBool(123, isMoving);
 
 		if(Input.GetKeyDown (KeyCode.Space))
         {
@@ -44,15 +50,6 @@ public class PlayerController : MonoBehaviour {
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
         }
-
-        /*
-        if(GetComponent<Rigidbody2D>().velocity.x != 0)
-            isMoving = true;
-        else
-            isMoving = false;
-        */
-
-        theanimator.SetBool(123, true);
     }
     
 }
